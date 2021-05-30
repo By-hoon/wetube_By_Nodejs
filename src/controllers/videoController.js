@@ -33,9 +33,7 @@
     }
     await Video.findByIdAndUpdate(id, {
       title, description,
-      hashtags:hashtags
-      .split(",")
-      .map((word) => (word.startsWith(`#`) ?  word : `#${word}`)),
+      hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect(`/videos/${id}`);
   };
@@ -49,7 +47,7 @@
       const video = new Video({
       title : title,
       description : description,
-      hashtags,
+      hashtags: Video.formatHashtags(hashtags),
     });
     await video.save();
     return res.redirect("/");

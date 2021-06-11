@@ -49,6 +49,7 @@ export const postLogin = async(req, res) => {
     return res.status(400).render("login", {pageTitle, errorMessage: "An account with this username does not user."})
   }
   const ok = await bcrypt.compare(password, user.password);
+  
   if(!ok){
     return res.status(400).render("login", {pageTitle, errorMessage: "Wrong password"});
   }
